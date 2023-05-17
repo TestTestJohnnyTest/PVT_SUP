@@ -229,7 +229,7 @@ if __name__ == "__main__":
     c_driver = create_chrome_driver(ublock=True, headless=False)
     
     #url
-    website_to_test = "https://www.youtube.com/"
+    website_to_test = "https://www.playstation.com/"
     
     seleniumsselector_list = ["rand_ind:css selector;ytd-rich-item-renderer"] # "refresh_sens:id;guide-icon", "relies_prev:partial link text;Trending",
     
