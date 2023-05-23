@@ -20,7 +20,7 @@ WEBSITE_LIST = {"https://www.youtube.com/":
                       "music":{"video":'rand_ind:css selector;ytd-video-renderer'
                                },
                       "gaming":{"video":"rand_ind:css selector;ytd-video-renderer"
-                          
+                          #asda
                       },
                   }
                  }
