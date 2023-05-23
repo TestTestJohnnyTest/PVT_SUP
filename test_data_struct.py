@@ -228,4 +228,5 @@ if __name__ == "__main__":
     #seleniumsselector_list = ["direct-link;signin", "partial link text;Create account"]
     #test_ss_list(website_to_test, seleniumsselector_list, c_driver)
     test_struct("https://www.youtube.com/")
+    #asdaasd
     pass
