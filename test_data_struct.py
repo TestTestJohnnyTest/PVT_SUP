@@ -3,6 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
 from random import randint
+from termcolor import colored
 
 from data import WEBSITE_LIST
 
@@ -223,10 +224,14 @@ def test_ss_list(website_url:str, ss_list:list, driver):
 if __name__ == "__main__":
     #c_driver = create_edge_driver(ublock=True, headless=False)
     #c_driver = create_chrome_driver(ublock=True, headless=False)
-    website_to_test = "https://www.youtube.com/"
-    seleniumsselector_list = ["rand_ind:css selector;ytd-rich-item-renderer"] # "refresh_sens:id;guide-icon", "relies_prev:partial link text;Trending",
-    #seleniumsselector_list = ["direct-link;signin", "partial link text;Create account"]
-    #test_ss_list(website_to_test, seleniumsselector_list, c_driver)
-    test_struct("https://www.youtube.com/")
-    #asdaasd
-    pass
+    try:
+        website_to_test = "https://www.youtube.com/"
+        seleniumsselector_list = ["rand_ind:css selector;ytd-rich-item-renderer"] # "refresh_sens:id;guide-icon", "relies_prev:partial link text;Trending",
+        #seleniumsselector_list = ["direct-link;signin", "partial link text;Create account"]
+        #test_ss_list(website_to_test, seleniumsselector_list, c_driver)
+        test_struct("https://www.youtube.com/")
+        #asdaasd
+    except Exception:
+        print(colored("Bad", "red"))
+        pass
+    
