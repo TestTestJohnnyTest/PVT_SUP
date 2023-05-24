@@ -268,4 +268,4 @@ if __name__ == "__main__":
     except ValueError:
         print(colored("ValueError: wrong syntax, check seleniumsselector_list", "red"))
         input("Press any key > ")
-    pass
+    pass#asd
