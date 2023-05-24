@@ -110,5 +110,29 @@ x = """1009,pastebin.com
 1685,mydrivers.com
 1686,autotrader.com"""
 
+my_list = x.split("\n")
+print(my_list)
+my_dict = {}
+counter = 207
+for each in my_list:
+    each = each[5:]
+    my_dict[counter] = each
+    counter += 1
+    print(each)
 
+import requests
+for url in my_dict.values():
+    try:
+        response = requests.get("https://www." + url)
+        html = response.text
+        print("Good")
+        continue
+    except Exception:
+        response = requests.get("http://www." + url)
+        html = response.text
+        print("Good")
+        continue
+    else:
+        print("BAD!!!!!!!!!!!")
+        continue
 

@@ -3,7 +3,16 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
 from random import randint
+
+#
+#
+#▀█▀ 　 █▀▄▀█ █▀▀█ █▀▀▄ █▀▀ 　 █▀▀ █  █ █▀▀█ █▀▀▄ █▀▀▀ █▀▀ █▀▀ 
+# █  　 █ ▀ █ █▄▄█ █  █ █▀▀ 　 █   █▀▀█ █▄▄█ █  █ █ ▀█ █▀▀ ▀▀█ 
+#▀▀▀ 　 ▀   ▀ ▀  ▀ ▀▀▀  ▀▀▀ 　 ▀▀▀ ▀  ▀ ▀  ▀ ▀  ▀ ▀▀▀▀ ▀▀▀ ▀▀▀
+# like this ↓↓
 from termcolor import colored
+#termcolor.colored makes colored text for print()
+#
 
 from data import WEBSITE_LIST
 
@@ -155,7 +164,10 @@ def better_find_element(driver, url, css, type_find, pural:bool=False):
 
 def test_ss_list(website_url:str, ss_list:list, driver):
     driver.get(website_url)
-    time.sleep(5)
+    ################################
+    ###### I changed this from 5 to 2. Sorry
+    ####################
+    time.sleep(2)
     #input()
     count = 0
     refresh_mem =[]
@@ -168,16 +180,19 @@ def test_ss_list(website_url:str, ss_list:list, driver):
             special, type_find = type_find.split(":")
             special_list = special.split["~"]
         except:
-            pass
+            try:
+                special_list = special
+            except:
+                pass
         print(count)
         count+=1
         #input()
         print(type_find)
-        if special: # specific indexed result
+        if special_list: # specific indexed result
             if "refresh_sens" in special_list:
                 refresh_mem.append((type_find, css))
             #if special[:3] == "ind_":
-            if any("ind_" in string for string in special_list):
+            if "ind_" in special_list:
                 done_special=True
                 try:
                     #elements = driver.find_elements(type_find, css)
@@ -222,16 +237,35 @@ def test_ss_list(website_url:str, ss_list:list, driver):
     input("OUT")
 
 if __name__ == "__main__":
-    #c_driver = create_edge_driver(ublock=True, headless=False)
-    #c_driver = create_chrome_driver(ublock=True, headless=False)
     try:
-        website_to_test = "https://www.youtube.com/"
-        seleniumsselector_list = ["rand_ind:css selector;ytd-rich-item-renderer"] # "refresh_sens:id;guide-icon", "relies_prev:partial link text;Trending",
+        c_driver = create_chrome_driver(ublock=True, headless=False)
+        #c_driver = create_edge_driver(ublock=True, headless=False)
+
+        
+        website_to_test = "https://www.avast.com"
+        
+        #   #   #   #   #   #   #   #   #   #   #
+        #   I put endpoints here but it's neater
+        #
+        #   id
+        #   partial link text
+        #   class name
+        #   css selector
+        #   direct-link
+        #
+        #
+        #
+        op = ["partial link text;For business", "partial link textExplore our top-selling solutions"]
+        
+        seleniumsselector_list = op
+        # ^^^^^^^^^^^^^ "refresh_sens:id;guide-icon"] # "refresh_sens:id;guide-icon", "relies_prev:partial link text;Trending",
         #seleniumsselector_list = ["direct-link;signin", "partial link text;Create account"]
-        #test_ss_list(website_to_test, seleniumsselector_list, c_driver)
-        test_struct("https://www.youtube.com/")
-        #asdaasd
-    except Exception:
-        print(colored("Bad", "red"))
-        pass
-    
+        test_ss_list(website_to_test, seleniumsselector_list, c_driver)
+        #test_struct("https://www.pastebin.com")
+    except AttributeError:
+        print(colored("AttributeError: check website_to_test, line 230", "red"))
+        input("Press any key > ")
+    except ValueError:
+        print(colored("ValueError: wrong syntax, check seleniumsselector_list", "red"))
+        input("Press any key > ")
+    pass
