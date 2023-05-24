@@ -255,7 +255,7 @@ if __name__ == "__main__":
         #
         #
         #
-        op = ["partial link text;For business", "partial link textExplore our top-selling solutions"]
+        op = ["partial link text;About us"]
         
         seleniumsselector_list = op
         # ^^^^^^^^^^^^^ "refresh_sens:id;guide-icon"] # "refresh_sens:id;guide-icon", "relies_prev:partial link text;Trending",
