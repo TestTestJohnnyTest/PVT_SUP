@@ -120,21 +120,11 @@ for each in my_list:
     counter += 1
     print(each)
 
-import requests
-for url in my_dict.values():
-    try:
-        response = requests.get("https://www." + url)
-        html = response.text
-        print("Good")
-        continue
-    except Exception:
-        response = requests.get("http://www." + url)
-        html = response.text
-        print("Good")
-        continue
-    else:
-        print("BAD!!!!!!!!!!!")
-        continue
+my_list = list(my_dict.values())
+
+import json
+print(json.dumps(my_dict))
+
 
 WEBSITE_LIST = {
                 "https://www.youtube.com/":{

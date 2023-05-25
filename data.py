@@ -46,15 +46,18 @@ WEBSITE_LIST = {
                             "Login": "direct-link;login",
                             "sign-up": "direct-link;faq"
                         },
-                        "API":{"direct-link;doc_api", 
+                        "API":{
+                            "direct-link;doc_api", 
                             "direct-link;doc_scraping_api", 
                             "direct-link;languages"
-                            },
-                        "tools": {"direct-link;tools", 
-                                "direct-link;dSyh0xCc"\
                         },
-                        "faq": {"direct-link;faq", 
-                                "direct-link;doc_terms_of_service"
+                        "tools": {
+                            "direct-link;tools", 
+                            "direct-link;dSyh0xCc"
+                        },
+                        "faq": {
+                            "direct-link;faq", 
+                            "direct-link;doc_terms_of_service"
                         }
                     }
                 },
@@ -62,49 +65,70 @@ WEBSITE_LIST = {
                     "specifics":"ablock=true;",
                     "main_page":"refresh_sens:name;optoutmulti_button",
                     "endpoints":{
-                    "log_in":"id;log-in-button",
-                    "join":"id;join-button",
-                    "plan_travel":"refresh_sens:id;plan-travel-expander",
-                    "travel_info":"refresh_sens:id;travel-information-expander",
-                    "aadvantage":"refresh_sens:id;aadvantage-expander"
-                    },
-                    "sub-endpoints":
-                    {
-                        "plan_travel": {"refresh_sens:id;plan-travel-expander", 
-                                        "relies_prev:partial link text;Flights", 
-                                        "partial link text; Travelling with infants ", 
-                                        "partial link text;Call Special Assistance"},
-                        "travel_info": {"refresh_sens:id;travel-information-expander", 
-                                        "relies_prev:partial link text;At the airport", 
-                                        "partial link text;Check flight status"},
+                        "log_in":"id;log-in-button",
+                        "join":"id;join-button",
+                        "plan_travel":"refresh_sens:id;plan-travel-expander",
+                        "travel_info":"refresh_sens:id;travel-information-expander",
+                        "aadvantage":"refresh_sens:id;aadvantage-expander"
+                        },
+                    "sub-endpoints":{
+                        "plan_travel": {
+                            "refresh_sens:id;plan-travel-expander", 
+                            "relies_prev:partial link text;Flights", 
+                            "partial link text; Travelling with infants ", 
+                            "partial link text;Call Special Assistance"},
+                        "travel_info": {
+                            "refresh_sens:id;travel-information-expander", 
+                            "relies_prev:partial link text;At the airport", 
+                            "partial link text;Check flight status"},
                         "aadvantage": {
-                                    "refresh_sens:id;aadvantage-expander",
-                                    "relies_prev:partial link text;AAdvantage", 
-                                    "direct-link;pubcontent/en_US/aadvantage-program/loyalty-points/index.html"}
+                            "refresh_sens:id;aadvantage-expander",
+                            "relies_prev:partial link text;AAdvantage", 
+                            "direct-link;pubcontent/en_US/aadvantage-program/loyalty-points/index.html"}
                     }
                 },
                 "https://www.avast.com":{
                     "specifics":"ablock=true;",
                     "endpoints":{
-                    "for_home":"partial link text;For home",
-                    "for_business":"partial link text;For business",
-                    "for_partners":"partial link text;For partners",
-                    "about_us":"partial link text;About us"
+                        "for_home":"partial link text;For home",
+                        "for_business":"partial link text;For business",
+                        "for_partners":"partial link text;For partners",
+                        "about_us":"partial link text;About us"
                     },
-                    "sub-endpoints":
-                    {
-                        "for_business":{"partial link text;For business", 
-                                        "rand_int:class name;btn-wrapper", 
-                                        "rand_int:class name;header-more"},
-                        "for_partners":{"relies_prev:partial link text;For partners", 
-                                        "direct-link;en-ca/partners/smartlife",
-                                        "class name;btn-primary"}
+                    "sub-endpoints":{
+                        "for_business":{
+                            "partial link text;For business", 
+                            "rand_int:class name;btn-wrapper", 
+                            "rand_int:class name;header-more"},
+                        "for_partners":{
+                            "relies_prev:partial link text;For partners", 
+                            "direct-link;en-ca/partners/smartlife",
+                            "class name;btn-primary"}
                     }
                 },
                 "https://www.instagram.com/":{
                     "specifics":"ablock=true;",
                     "endpoints":{
-
+                        "sign_up":"partial link text;Sign up",
+                        "footer":"tag name;footer"
+                    },
+                    "sub-endpoints":{
+                        "footer":{
+                            "tag name;footer", 
+                            "relies_prev:class name;x9f619",
+                            "rand_ind:tag name;a"}
+                    }
+                },
+                "https://www.creditkarma.com/":{
+                    "specifics":"ablock=true;",
+                    "endpoints":{
+                        "button_list":"class name;flat-card-root",
+                        "login":"direct-link;auth/logon"
+                    },
+                    "sub-endpoints":{
+                        #2/6 of buttons need login auth
+                        "cards": "rand_ind:partial link text;Continue",
+                        "autos": "rand_ind:partial link text;Get Started",
                     }
                 }
             }

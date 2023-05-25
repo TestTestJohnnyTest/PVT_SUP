@@ -11,6 +11,7 @@ from random import randint
 #▀▀▀ 　 ▀   ▀ ▀  ▀ ▀▀▀  ▀▀▀ 　 ▀▀▀ ▀  ▀ ▀  ▀ ▀  ▀ ▀▀▀▀ ▀▀▀ ▀▀▀
 # like this ↓↓
 from termcolor import colored
+import json
 #termcolor.colored makes colored text for print()
 #
 
@@ -234,38 +235,47 @@ def test_ss_list(website_url:str, ss_list:list, driver):
             print("FAILED TO GET ELEMENT AFTER RETRIES")
             break
         time.sleep(2)
+
+    ####################################
     input("OUT")
+    ####################################
 
 if __name__ == "__main__":
-    try:
-        c_driver = create_chrome_driver(ublock=True, headless=False)
-        #c_driver = create_edge_driver(ublock=True, headless=False)
+    pte_json_file = open('list2.json')
+    pte_dict_of_urls = list(dict(json.load(pte_json_file)).values())
 
-        
-        website_to_test = "https://www.avast.com"
-        
-        #   #   #   #   #   #   #   #   #   #   #
-        #   I put endpoints here but it's neater
-        #
-        #   id
-        #   partial link text
-        #   class name
-        #   css selector
-        #   direct-link
-        #
-        #
-        #
-        op = ["partial link text;About us"]
-        
-        seleniumsselector_list = op
-        # ^^^^^^^^^^^^^ "refresh_sens:id;guide-icon"] # "refresh_sens:id;guide-icon", "relies_prev:partial link text;Trending",
-        #seleniumsselector_list = ["direct-link;signin", "partial link text;Create account"]
-        test_ss_list(website_to_test, seleniumsselector_list, c_driver)
-        #test_struct("https://www.pastebin.com")
-    except AttributeError:
-        print(colored("AttributeError: check website_to_test, line 230", "red"))
-        input("Press any key > ")
-    except ValueError:
-        print(colored("ValueError: wrong syntax, check seleniumsselector_list", "red"))
-        input("Press any key > ")
-    pass#asd
+    #index 5 - the 6th website on the list that you gave me
+    for pte_website in pte_dict_of_urls[5:]:
+        try:   
+            c_driver = create_chrome_driver(ublock=True, headless=False)
+            #c_driver = create_edge_driver(ublock=True, headless=False)
+            website_to_test = "https://www." + pte_website
+            #website_to_test = "https://www.creditkarma.com/shop/autos"
+            print("\n------------------\nTesting Website: " + pte_website + "\n------------------")
+            
+            #   #   #   #   #   #   #   #   #   #   #
+            #   I put endpoints here but it's neater
+            #
+            #   id
+            #   partial link text
+            #   class name
+            #   css selector
+            #   direct-link
+            #
+            #   partial link text;Sign up
+            # class name;x9f619 
+            op = ["id;feature-widget", "rand_ind:class name;feature-main"]
+
+            
+            seleniumsselector_list = op
+            # ^^^^^^^^^^^^^ "refresh_sens:id;guide-icon"] # "refresh_sens:id;guide-icon", "relies_prev:partial link text;Trending",
+            #seleniumsselector_list = ["direct-link;signin", "partial link text;Create account"]
+            test_ss_list(website_to_test, seleniumsselector_list, c_driver)
+            #test_struct("https://www.pastebin.com")
+        except AttributeError:
+            print(colored("AttributeError: check website_to_test, line 230", "red"))
+            input("Press any key > ")
+        except ValueError:
+            print(colored("ValueError: wrong syntax, check seleniumsselector_list", "red"))
+            input("Press any key > ")
+
