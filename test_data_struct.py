@@ -12,6 +12,7 @@ from random import randint
 # like this ↓↓
 from termcolor import colored
 import json
+import pdb
 #termcolor.colored makes colored text for print()
 #
 
@@ -163,6 +164,15 @@ def better_find_element(driver, url, css, type_find, pural:bool=False):
         element = driver.find_element(type_find, css)
         return element
 
+def check_substring(lst:list, substring):
+    if lst == None:
+        return False, 1
+    for string in lst:
+        if substring in string:
+            ret_val = string[len(substring):]
+            return True, ret_val
+    return False, 1
+
 def test_ss_list(website_url:str, ss_list:list, driver):
     driver.get(website_url)
     ################################
@@ -179,7 +189,7 @@ def test_ss_list(website_url:str, ss_list:list, driver):
         done_special = False
         try:
             special, type_find = type_find.split(":")
-            special_list = special.split["~"]
+            special_list = special.split('~')
         except:
             try:
                 special_list = special
@@ -190,8 +200,35 @@ def test_ss_list(website_url:str, ss_list:list, driver):
         #input()
         print(type_find)
         if special_list: # specific indexed result
+            try:
+                scroll_present, scroll_val = check_substring(special_list, "scroll_")
+            except:
+                scroll_present = False
+                scroll_val = 0
+            try:
+                ind_present, ind_val = check_substring(special_list, "ind_")
+            except:
+                ind_present = False
+                ind_val = 0
             if "refresh_sens" in special_list:
                 refresh_mem.append((type_find, css))
+            if scroll_present:
+                print(scroll_val)
+                scroll_pix = "window.scrollBy(0,"+scroll_val+")"
+                driver.execute_script(scroll_pix, "")
+            if ind_present:
+                done_special=True
+                try:
+                    #elements = driver.find_elements(type_find, css)
+                    elements = better_find_element(driver, website_url, css, type_find, True)
+                except:
+                    if "relies_prev" in special_list:#check if in a state that requires to run last command
+                        last_type_find, last_css = refresh_mem.pop()
+                        elements = retry_3times_relies_prev_multiple(driver, website_url, last_type_find, last_css, type_find, css)
+                    #elements = driver.find_elements(type_find, css)
+                ind = int(ind_val)
+                print(ind)
+                element = elements[ind]
             #if special[:3] == "ind_":
             if "ind_" in special_list:
                 done_special=True
@@ -212,10 +249,21 @@ def test_ss_list(website_url:str, ss_list:list, driver):
                     #elements = driver.find_elements(type_find, css)
                     elements = better_find_element(driver, website_url, css, type_find, pural=True)
                 except:
+                    ##############################################################################################################################################
+                    # To log selenium driver exception for rand_ind
+                    pdb.post_mortem()
+                    ##############################################################################################################################################
                     if "relies_prev" in special_list:#check if in a state that requires to run last command
                         last_type_find, last_css = refresh_mem.pop()
                         elements = retry_3times_relies_prev_multiple(driver, website_url, last_type_find, last_css, type_find, css)
 
+                ##############################################################################################################################################
+                # Added to see how many elements that selenium found
+                if len(elements) == 0:
+                    raise NameError
+                else:
+                    print("Number of elements found: " + str(len(elements)))
+                ##############################################################################################################################################
                 rand_ind = randint(1,len(elements))-1
                 element = elements[rand_ind]
         if not done_special:
@@ -241,19 +289,26 @@ def test_ss_list(website_url:str, ss_list:list, driver):
     ####################################
 
 if __name__ == "__main__":
+    #opening the list the you gave me (i converted it into a json dict)
     pte_json_file = open('list2.json')
     pte_dict_of_urls = list(dict(json.load(pte_json_file)).values())
 
-    #index 5 - the 6th website on the list that you gave me
-    for pte_website in pte_dict_of_urls[5:]:
+    #index 6 - the 7th website on the list that you gave me
+    for pte_website in pte_dict_of_urls[6:]:
         try:   
             c_driver = create_chrome_driver(ublock=True, headless=False)
             #c_driver = create_edge_driver(ublock=True, headless=False)
-            website_to_test = "https://www." + pte_website
-            #website_to_test = "https://www.creditkarma.com/shop/autos"
-            print("\n------------------\nTesting Website: " + pte_website + "\n------------------")
+            #website_to_test = "https://www." + pte_website
+            website_to_test = "https://www.avast.com"
+            print("\n---------------------------\nTesting Website: " + website_to_test + "\n---------------------------")
             
             #   #   #   #   #   #   #   #   #   #   #
+            #
+            #   Combine Operators?
+            #   rand_ind~relies_prev:
+            #   scroll_2000:
+            #
+            #   #   #   #   #   #   #   #   #   #   # 
             #   I put endpoints here but it's neater
             #
             #   id
@@ -263,8 +318,12 @@ if __name__ == "__main__":
             #   direct-link
             #
             #   partial link text;Sign up
-            # class name;x9f619 
-            op = ["id;feature-widget", "rand_ind:class name;feature-main"]
+            #   partial link text;Entertainment
+            #   class name;x9f619 
+            #   "rand_ind:xpath;//article[@class='DesktopPod_desktopPod__22rpL']/a",
+            #   
+            #   
+            op = ["partial link text;For business", "class name;btn-wrapper", "rand_ind:class name;header-more"]
 
             
             seleniumsselector_list = op
@@ -274,9 +333,15 @@ if __name__ == "__main__":
             #test_struct("https://www.pastebin.com")
         except AttributeError:
             print(colored("AttributeError: check website_to_test, line 230", "red"))
-            input("Press any key > ")
+        except NameError:
+            print(colored("RandIndError: no elements found", "light_magenta"))
+            colored
         except ValueError:
             print(colored("ValueError: wrong syntax, check seleniumsselector_list", "red"))
-            input("Press any key > ")
-
-###asdadads
+        
+        #
+        #
+        # New code has for loop that moves to the next website in the json list
+        # but it is still unfinished because i am still making my own scraper for
+        # selectors
+        input("> ")

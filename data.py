@@ -32,11 +32,11 @@ WEBSITE_LIST = {
                 "https://www.pastebin.com":{
                     "specifics":"ablock=true;",
                     "endpoints":{
-                        "API": "direct-link;doc_api",
-                        "tools": "direct-link;tools",
-                        "faq": "direct-link;faq",
-                        "Login": "login",
-                        "sign-up": "signup"
+                        "Login":"direct-link;login",
+                        "sign-up":"direct-link;signup",
+                        "languages":"direct-link;languages",
+                        "manual":"direct-link;dSyh0xCc",
+                        "site_tos":"direct-link;faq, direct-link;doc_terms_of_service"
                     },
                     "sub-endpoints":{
                         "header":{
@@ -47,17 +47,19 @@ WEBSITE_LIST = {
                             "sign-up": "direct-link;faq"
                         },
                         "API":{
-                            "direct-link;doc_api", 
-                            "direct-link;doc_scraping_api", 
-                            "direct-link;languages"
+                            "scraping_api":"direct-link;doc_scraping_api"
+                        },
+                        "scraping_api":{
+                            ## end ##
+                            "languages":"direct-link;languages"
                         },
                         "tools": {
-                            "direct-link;tools", 
-                            "direct-link;dSyh0xCc"
+                            ## end ##
+                            "manual":"direct-link;dSyh0xCc"
                         },
                         "faq": {
-                            "direct-link;faq", 
-                            "direct-link;doc_terms_of_service"
+                            ## end ##
+                            "site_tos":"direct-link;doc_terms_of_service"
                         }
                     }
                 },
@@ -67,43 +69,69 @@ WEBSITE_LIST = {
                     "endpoints":{
                         "log_in":"id;log-in-button",
                         "join":"id;join-button",
-                        "plan_travel":"refresh_sens:id;plan-travel-expander",
-                        "travel_info":"refresh_sens:id;travel-information-expander",
-                        "aadvantage":"refresh_sens:id;aadvantage-expander"
+                        "special_assist":
+                            "relies_prev:partial link text;Flights, partial link text; Travelling with infants , partial link text;Call Special Assistance",
+                        "flight_status":
+                            "relies_prev:partial link text;At the airport, partial link text;Check flight status",
+                        "loyalty_points":
+                            "relies_prev:partial link text;AAdvantage, direct-link;pubcontent/en_US/aadvantage-program/loyalty-points/index.html"
                         },
                     "sub-endpoints":{
                         "plan_travel": {
-                            "refresh_sens:id;plan-travel-expander", 
-                            "relies_prev:partial link text;Flights", 
-                            "partial link text; Travelling with infants ", 
-                            "partial link text;Call Special Assistance"},
-                        "travel_info": {
-                            "refresh_sens:id;travel-information-expander", 
-                            "relies_prev:partial link text;At the airport", 
-                            "partial link text;Check flight status"},
-                        "aadvantage": {
-                            "refresh_sens:id;aadvantage-expander",
-                            "relies_prev:partial link text;AAdvantage", 
-                            "direct-link;pubcontent/en_US/aadvantage-program/loyalty-points/index.html"}
+                            "flights":"refresh_sens:id;plan-travel-expander"
+                        },
+                        "flights":{
+                            "infants":"partial link text; Travelling with infants "
+                        },
+                        "infants":{
+                            ## end ##
+                            "special_assist":"partial link text;Call Special Assistance"
+                        },
+
+                        "travel_info":{
+                            "info_menu":"refresh_sens:id;travel-information-expander"
+                        },
+                        "info_menu":{
+                            ## end ##
+                            "flight_status":"partial link text;Check flight status"
+                        },
+                        "aadvantage":{
+                            "aadvantage_menu":"refresh_sens:id;aadvantage-expander"
+                        },
+                        "aadvantage_menu":{
+                            "aadvantage_menu2":"relies_prev:partial link text;AAdvantage"
+                        },
+                        "aadvantage_menu2":{
+                            ## end ##
+                            "loyalty_points":"relies_prev:partial link text;AAdvantage"
+                        }
                     }
                 },
+
+#########EVERYTHING BELOW HERE IS NOT CORRECTLY FORMATTED
                 "https://www.avast.com":{
                     "specifics":"ablock=true;",
                     "endpoints":{
                         "for_home":"partial link text;For home",
-                        "for_business":"partial link text;For business",
-                        "for_partners":"partial link text;For partners",
-                        "about_us":"partial link text;About us"
+                        "about_us":"partial link text;About us",
+                        "store_closeup":"class name;btn-wrapper, rand_ind:class name;header-more",
+                        "faq":"direct-link;en-ca/partners/smartlife, class name;btn-primary"
                     },
                     "sub-endpoints":{
                         "for_business":{
-                            "partial link text;For business", 
-                            "rand_int:class name;btn-wrapper", 
-                            "rand_int:class name;header-more"},
+                                "store":"partial link text;For business"
+                        },
+                        "store":{
+                            ## end ##
+                            "store_closeup":"class name;btn-wrapper"
+                        },
                         "for_partners":{
-                            "relies_prev:partial link text;For partners", 
-                            "direct-link;en-ca/partners/smartlife",
-                            "class name;btn-primary"}
+                            "smartlife":"relies_prev:partial link text;For partners"
+                        },
+                        "smartlife":{
+                            ## end ##
+                           "faq":"direct-link;en-ca/partners/smartlife"     
+                        }
                     }
                 },
                 "https://www.instagram.com/":{
@@ -130,5 +158,33 @@ WEBSITE_LIST = {
                         "cards": "rand_ind:partial link text;Continue",
                         "autos": "rand_ind:partial link text;Get Started",
                     }
+                },
+                #Really bad response time
+                "https://www.gmanetwork.com":{
+                    "specifics":"ablock=true;",
+                    "endpoints":{
+                        "button_list":"id;feature-widget",
+                        "news":"partial link text;News",
+
+                    },
+                    "sub-endpoints":{
+                        "button_list":"rand_ind:class name;feature-main"
+                    }
+                },
+                "https://www.rightmove.co.uk":{
+                    "specifics":"ablock=true;",
+                    "endpoints":{
+                        "article_list":"rand_ind:xpath;//article[@class='DesktopPod_desktopPod__22rpL']/a",
+                        "sign_in":"partial link text;Sign in"
+                    },
+                    "sub-endpoints":{
+                        
+                        "sold_house_prices":
+                            "rand_ind:xpath;//div[@class='linksCollection_linkCellOne__xYsbL']/a",
+                        "property_news":
+                            "scroll_2500~rand_ind:class name;article-block__link",
+                        "moving_stories":""
+                    }
                 }
+
             }
